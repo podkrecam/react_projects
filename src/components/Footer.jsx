@@ -5,8 +5,8 @@ const currentYear = new Date().getFullYear();
 
 export default function Footer() {
   return (
-    <footer className="relative w-full max-w-7xl">
-      <div className="border-blue-gray-50 flex w-full flex-col-reverse items-center justify-center gap-3 border-t py-7 md:flex-row md:justify-between">
+    <footer className="relative mx-auto w-full max-w-7xl">
+      <div className="border-blue-gray-50 flex w-full flex-col-reverse items-center justify-center gap-3 py-7 md:flex-row md:justify-between">
         <span>
           &copy; {currentYear}
           {" Jadwiga Osial"}
