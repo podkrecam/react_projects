@@ -1,48 +1,86 @@
 import { useState } from "react";
+import Section from "../components/Section";
 
-export default function Contact() {
-  const [message, setMessage] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+export default function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("Wysyłanie...");
+
+    try {
+      const res = await fetch(import.meta.env.VITE_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setStatus("✅ Wiadomość wysłana!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus(`❌ Błąd: ${data.message}`);
+      }
+    } catch (err) {
+      setStatus("❌ Błąd serwera.");
+    }
+  };
 
   return (
-    <div>
-      <form className="contact-form" onSubmit={() => {}}>
-        <label htmlFor="message-input">Your Message</label>
-        <textarea
-          onChange={(e) => setMessage({ message: e.target.value })}
-          name="message"
-          type="text"
-          placeholder="Please write your message here"
-          value={message}
+    <Section className="bg-primary text-text flex flex-col items-center px-5 py-20">
+      <h2 className="text-accent font-primary mb-10 text-4xl font-bold uppercase">
+        Kontakt
+      </h2>
+
+      <form
+        onSubmit={handleSubmit}
+        className="flex w-full max-w-lg flex-col gap-6"
+      >
+        <input
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Imię"
+          className="text-text focus:ring-accent rounded-lg border border-neutral-700 p-3 focus:ring-2 focus:outline-none"
           required
         />
-
-        <label htmlFor="message-name">Your Name</label>
         <input
-          onChange={(e) => setName({ name: e.target.value })}
-          name="name"
-          type="text"
-          placeholder="Your Name"
-          value={name}
-        />
-
-        <label htmlFor="message-email">Your Email</label>
-        <input
-          onChange={(e) => setEmail({ email: e.target.value })}
           name="email"
           type="email"
-          placeholder="your@email.com"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Email"
+          className="text-text focus:ring-accent rounded-lg border border-neutral-700 p-3 focus:ring-2 focus:outline-none"
           required
-          value={email}
         />
-
-        <div className="button--container">
-          <button type="submit" className="button button-primary">
-            {}
-          </button>
-        </div>
+        <textarea
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          placeholder="Wiadomość"
+          rows={5}
+          className="text-text focus:ring-accent rounded-lg border border-neutral-700 p-3 focus:ring-2 focus:outline-none"
+          required
+        />
+        <button
+          type="submit"
+          className="bg-accent text-primary hover:bg-accent/80 rounded-lg py-3 font-bold transition-colors"
+        >
+          Wyślij
+        </button>
       </form>
-    </div>
+
+      {status && <p className="mt-4 text-sm">{status}</p>}
+    </Section>
   );
 }
