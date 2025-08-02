@@ -15,10 +15,8 @@ export default function AboutSection() {
   return (
     <Section className="bg-secondary text-text relative flex items-center justify-center overflow-hidden py-16 md:py-24">
       <div className="grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-5 md:grid-cols-2 md:gap-16">
-        {/* Kolumna ze zdjęciem */}
-
         <div
-          className={`flex flex-col items-start justify-center space-y-6 transition-all duration-1000 ease-out ${
+          className={`flex flex-col items-start justify-center space-y-6 transition-all duration-1000 ease-out md:col-start-2 md:row-start-1 ${
             animate
               ? "translate-x-0 opacity-100 delay-200"
               : "translate-x-10 opacity-0"
