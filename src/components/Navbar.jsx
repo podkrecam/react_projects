@@ -53,7 +53,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation Menu */}
       <ul
-        className={`bg-accent fixed top-0 right-0 flex h-full w-full flex-col items-center justify-center transition-all duration-700 ease-in-out md:hidden ${
+        className={`bg-accent text-primary fixed top-0 right-0 flex h-full w-full flex-col items-center justify-center transition-all duration-700 ease-in-out md:hidden ${
           nav ? "z-5 opacity-100" : "-z-10 opacity-0"
         }`}
       >
