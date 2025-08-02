@@ -14,7 +14,7 @@ export default function HeroSection() {
     <Section className="bg-primary text-text relative flex items-center justify-center overflow-hidden md:h-screen">
       <div className="flex w-full max-w-7xl flex-col items-center justify-center gap-8 px-5 py-10 md:grid md:grid-cols-2 md:gap-6">
         {/* lewa kolumna */}
-        <div className="flex flex-col items-start justify-center space-y-6 px-5">
+        <div className="mt-5 flex flex-col items-start justify-center space-y-6 px-5 md:mt-0">
           <h1 className="text-accent font-primary text-5xl font-bold tracking-tight uppercase sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl">
             Jadwiga Osial
           </h1>
