@@ -8,39 +8,39 @@ export default function HeroSection() {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setAnimate(true), 50);
+    const timer = setTimeout(() => setAnimate(true), 10);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <Section className="bg-primary text-text relative flex h-screen items-center justify-center overflow-hidden">
-      {/* Duży napis w tle */}
-      <h1 className="text-text font-primary absolute bottom-0 z-0 text-[12vw] font-bold tracking-tight uppercase select-none sm:text-[12vw]">
+    <Section className="bg-primary text-text relative flex h-screen flex-col items-center justify-center overflow-hidden">
+      <h1 className="text-accent font-primary absolute bottom-7 z-30 text-[12vw] font-bold tracking-tight text-wrap uppercase select-none md:bottom-0 md:text-[12vw]">
         Jadwiga Osial
       </h1>
+      <p
+        className={`font-secondary text-text mt-6 w-3/4 text-center text-lg tracking-wide transition-all duration-1000 ease-out md:w-1/2 ${animate ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"}`}
+      >
+        Zanurz się w świecie mojej sztuki i pozwól, aby moje obrazy inspirowały
+        i poruszały Twoje zmysły.
+      </p>
 
-      {/* Kontener na karty */}
-      <div className="relative z-10 flex h-full w-full max-w-[400px] items-end justify-center sm:h-auto sm:w-1/3 sm:items-center">
+      <div className="relative z-10 flex h-auto w-full max-w-[400px] items-center justify-center pt-10 md:h-auto md:w-1/3 md:items-center xl:w-full">
         {/* Lewa karta */}
         <img
           src={hero2}
           alt="Obraz 2"
-          className={`absolute h-auto w-2/3 rounded-xl border border-neutral-800 shadow-2xl transition-all duration-700 ease-out sm:w-full ${
+          className={`absolute h-auto w-2/3 rounded-xl border border-neutral-800 shadow-2xl transition-all duration-1000 ease-out hover:translate-x-[0%] hover:translate-y-[-10%] hover:scale-105 hover:rotate-1 md:w-full xl:w-full ${
             animate
-              ? "opacity-100 sm:translate-x-[30%] sm:translate-y-[5%] sm:rotate-[-6deg]"
-              : "translate-y-[50%] opacity-0"
-          } sm:static sm:opacity-100`}
-          style={{
-            bottom: animate ? "10%" : "-50%", // efekt wjazdu od dołu na mobile
-            transform: animate ? "translateY(0)" : "translateY(50px)",
-          }}
+              ? "opacity-100 md:translate-x-[60%] md:translate-y-[5%] md:rotate-[-6deg]"
+              : "opacity-0"
+          } md:static`}
         />
 
         {/* Środkowa karta */}
         <img
           src={hero1}
           alt="Obraz 1"
-          className={`relative z-10 h-auto w-2/3 rounded-xl border border-neutral-800 shadow-2xl transition-transform duration-500 hover:scale-105 hover:rotate-1 sm:w-full ${
+          className={`relative z-10 h-auto w-4/5 rounded-xl border border-neutral-800 shadow-2xl transition-transform duration-500 hover:scale-105 hover:rotate-1 xl:w-full ${
             animate ? "opacity-100" : "scale-90 opacity-0"
           }`}
         />
@@ -49,15 +49,11 @@ export default function HeroSection() {
         <img
           src={hero3}
           alt="Obraz 3"
-          className={`absolute h-auto w-2/3 rounded-xl border border-neutral-800 shadow-2xl transition-all duration-700 ease-out sm:w-full ${
+          className={`absolute h-auto w-2/3 rounded-xl border border-neutral-800 shadow-2xl transition-all duration-1000 ease-out hover:translate-x-[0%] hover:translate-y-[-10%] hover:scale-105 hover:rotate-1 md:w-full xl:w-full ${
             animate
-              ? "opacity-100 sm:translate-x-[-30%] sm:translate-y-[5%] sm:rotate-[6deg]"
-              : "translate-y-[50%] opacity-0"
-          } sm:static sm:opacity-100`}
-          style={{
-            bottom: animate ? "10%" : "-50%",
-            transform: animate ? "translateY(0)" : "translateY(50px)",
-          }}
+              ? "opacity-100 md:translate-x-[-60%] md:translate-y-[5%] md:rotate-[6deg]"
+              : "opacity-0"
+          } md:static`}
         />
       </div>
     </Section>
