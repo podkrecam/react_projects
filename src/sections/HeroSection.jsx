@@ -13,7 +13,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <Section className="bg-primary text-text relative flex h-screen flex-col items-center justify-center overflow-hidden">
+    <Section className="bg-primary text-text relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
       <p
         className={`font-secondary text-text mt-6 w-3/4 text-center text-lg tracking-wide transition-all duration-1000 ease-out md:w-1/2 ${animate ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"}`}
       >
@@ -21,7 +21,7 @@ export default function HeroSection() {
         i poruszały Twoje zmysły.
       </p>
 
-      <div className="relative z-10 flex h-auto w-full max-w-[400px] items-center justify-center pt-10 md:h-auto md:w-1/3 md:items-center xl:w-full">
+      <div className="relative z-10 flex h-auto w-full max-w-[400px] items-center justify-center pt-10 pb-10 md:h-auto md:w-1/3 md:items-center xl:w-full">
         {/* Lewa karta */}
         <img
           src={hero2}
