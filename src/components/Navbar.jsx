@@ -48,7 +48,11 @@ const Navbar = () => {
         onClick={handleNav}
         className={`fixed z-10 cursor-pointer p-4 transition-all duration-300 ease-in-out md:hidden ${nav ? "scale-110 rotate-90" : "rotate-0"}`}
       >
-        {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />}
+        {nav ? (
+          <AiOutlineClose size={30} color="#fffaf5" />
+        ) : (
+          <AiOutlineMenu size={30} />
+        )}
       </div>
 
       {/* Mobile Navigation Menu */}
