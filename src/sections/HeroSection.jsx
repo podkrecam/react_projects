@@ -14,9 +14,6 @@ export default function HeroSection() {
 
   return (
     <Section className="bg-primary text-text relative flex h-screen flex-col items-center justify-center overflow-hidden">
-      <h1 className="text-accent font-primary absolute bottom-7 z-30 text-[12vw] font-bold tracking-tight text-wrap uppercase select-none md:bottom-0 md:text-[12vw]">
-        Jadwiga Osial
-      </h1>
       <p
         className={`font-secondary text-text mt-6 w-3/4 text-center text-lg tracking-wide transition-all duration-1000 ease-out md:w-1/2 ${animate ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"}`}
       >
@@ -56,6 +53,9 @@ export default function HeroSection() {
           } md:static`}
         />
       </div>
+      <h1 className="text-accent font-primary bottom-7 z-30 text-[12vw] font-bold tracking-tight text-wrap uppercase select-none md:absolute md:bottom-0 md:text-[12vw]">
+        Jadwiga Osial
+      </h1>
     </Section>
   );
 }
