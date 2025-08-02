@@ -28,10 +28,10 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`flex min-h-full flex-col items-end justify-between`}>
+    <nav className={`z-100 flex min-h-full flex-col items-end justify-between`}>
       {/* Desktop Navigation */}
       <ul
-        className={`fixed hidden w-full md:flex ${isScrolled ? "bg-accent" : ""}`}
+        className={`fixed hidden w-full md:flex ${isScrolled ? "bg-accent text-primary" : ""}`}
       >
         {navItems.map((item) => (
           <li
@@ -46,7 +46,7 @@ const Navbar = () => {
       {/* Mobile Navigation Icon */}
       <div
         onClick={handleNav}
-        className={`fixed z-10 cursor-pointer p-4 transition-all duration-300 ease-in-out md:hidden ${nav ? "scale-110 rotate-90" : "rotate-0"}`}
+        className={`fixed z-20 cursor-pointer p-4 transition-all duration-300 ease-in-out md:hidden ${nav ? "scale-110 rotate-90" : "rotate-0"}`}
       >
         {nav ? (
           <AiOutlineClose size={30} color="#fffaf5" />
@@ -57,11 +57,8 @@ const Navbar = () => {
 
       {/* Mobile Navigation Menu */}
       <ul
-        className={`bg-accent text-primary fixed top-0 right-0 flex h-full w-full flex-col items-center justify-center transition-all duration-700 ease-in-out md:hidden ${
-          nav ? "z-5 opacity-100" : "-z-10 opacity-0"
-        }`}
+        className={`bg-accent text-primary fixed top-0 right-0 flex h-full w-full flex-col items-center justify-center transition-all duration-700 ease-in-out md:hidden ${nav ? "z-10 translate-x-0 opacity-100" : "z-[-1] translate-x-full opacity-0"}`}
       >
-        {/* Mobile Navigation Items */}
         {navItems.map((item) => (
           <li
             key={item.id}
