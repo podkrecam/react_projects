@@ -18,7 +18,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    const handleScroll = () => setIsScrolled(window.scrollY > 100);
 
     window.addEventListener("scroll", handleScroll);
 
@@ -31,16 +31,33 @@ const Navbar = () => {
     <nav className={`z-100 flex min-h-full flex-col items-end justify-between`}>
       {/* Desktop Navigation */}
       <ul
-        className={`fixed hidden w-full md:flex ${isScrolled ? "bg-accent text-primary" : ""}`}
+        className={`fixed top-4 right-0 left-0 mx-auto hidden max-w-screen-2xl justify-between px-10 font-medium tracking-wide uppercase md:flex ${
+          isScrolled
+            ? "bg-accent/80 text-primary py-5 shadow-md"
+            : "text-accent py-5"
+        } transition-all duration-300`}
       >
-        {navItems.map((item) => (
-          <li
-            key={item.id}
-            className="hover:text-accent m-2 cursor-pointer rounded-xl p-2 duration-500"
-          >
-            <Link to={item.to}>{item.text}</Link>
-          </li>
-        ))}
+        <div className="flex gap-6">
+          {navItems.slice(0, 2).map((item) => (
+            <li key={item.id} className="group relative cursor-pointer">
+              <Link to={item.to} className="hover:text-muted duration-500">
+                {item.text}
+              </Link>
+              <span className="bg-accent absolute bottom-[-2px] left-0 h-[2px] w-0 transition-all duration-500 group-hover:w-full"></span>
+            </li>
+          ))}
+        </div>
+
+        <div className="flex gap-6">
+          {navItems.slice(2).map((item) => (
+            <li key={item.id} className="group relative cursor-pointer">
+              <Link to={item.to} className="hover:text-muted duration-500">
+                {item.text}
+              </Link>
+              <span className="bg-accent absolute bottom-[-2px] left-0 h-[2px] w-0 transition-all duration-500 group-hover:w-full"></span>
+            </li>
+          ))}
+        </div>
       </ul>
 
       {/* Mobile Navigation Icon */}

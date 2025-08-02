@@ -5,24 +5,36 @@ const currentYear = new Date().getFullYear();
 
 export default function Footer() {
   return (
-    <footer className="relative mx-auto w-full max-w-7xl">
-      <div className="border-blue-gray-50 flex w-full flex-col-reverse items-center justify-center gap-3 py-7 md:flex-row md:justify-between">
-        <span>
-          &copy; {currentYear}
-          {" Jadwiga Osial"}
+    <footer className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="border-blue-gray-100 flex flex-col items-center justify-center gap-3 border-t py-7 md:flex-row md:justify-between">
+        <span className="text-sm text-gray-600">
+          &copy; {currentYear} Jadwiga Osial
         </span>
-        <div className="text-blue-gray-900 flex gap-4 sm:py-2 md:justify-center">
+
+        <div className="flex gap-6">
+          <span className="text-sm text-gray-600">
+            <Link
+              to="mailto:jadwigaosialart@gmail.com"
+              className="hover:text-accent"
+            >
+              jadwigaosialart@gmail.com
+            </Link>
+          </span>
           <Link
             to="https://www.facebook.com/jadwiga.osial"
-            className="opacity-80 transition-opacity hover:opacity-100"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="opacity-80 transition-transform hover:scale-110 hover:opacity-100"
           >
-            <AiFillFacebook size={25} className="" color="#5a5a5a" />
+            <AiFillFacebook size={25} color="#5a5a5a" />
           </Link>
           <Link
             to="https://www.instagram.com/jadwigaosial"
-            className="opacity-80 transition-opacity hover:opacity-100"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="opacity-80 transition-transform hover:scale-110 hover:opacity-100"
           >
-            <AiFillInstagram size={25} className="" color="#5a5a5a" />
+            <AiFillInstagram size={25} color="#5a5a5a" />
           </Link>
         </div>
       </div>
