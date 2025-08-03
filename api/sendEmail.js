@@ -61,11 +61,11 @@ export default async function handler(req, res) {
       subject: "Dziękujemy za kontakt",
       html: `
     <div style="font-family: Arial, sans-serif; color: #333;">
-      <h2 style="color: #4A90E2;">Dzień dobry ${name},</h2>
-      <p>Dziękujemy za wiadomość! Bardzo cieszymy się, że się z nami skontaktowałeś/aś.</p>
-      <p>Odpowiemy na Twoją wiadomość tak szybko, jak to będzie możliwe.</p>
+      <h2 style="color: #4a6b5f;">Dzień dobry ${name},</h2>
+      <p>Dziękujemy za wiadomość! Bardzo cieszę się, że się ze mną skontaktowałeś/aś.</p>
+      <p>Odpowiem na Twoją wiadomość tak szybko, jak to będzie możliwe.</p>
       <br />
-      <p>Pozdrawiamy serdecznie,<br /><strong>Zespół Jadwiga Osial Art</strong></p>
+      <p>Pozdrawiamy serdecznie,<br /><strong>Jadwiga Osial Art</strong></p>
       <hr style="border:none; border-top:1px solid #eee; margin:20px 0;" />
       <p style="font-size: 12px; color: #999;">
         To jest wiadomość automatyczna, prosimy na nią nie odpowiadać.
