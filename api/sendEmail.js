@@ -7,23 +7,40 @@ export default async function handler(req, res) {
 
   const { name, email, message, token } = req.body;
 
-  // Walidacja reCAPTCHA
+  if (!token) {
+    return res.status(400).json({ message: "Brak tokenu reCAPTCHA" });
+  }
+
+  // Weryfikacja reCAPTCHA v3
   try {
+    const params = new URLSearchParams();
+    params.append("secret", process.env.RECAPTCHA_SECRET_KEY);
+    params.append("response", token);
+
     const recaptchaRes = await fetch(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
-      { method: "POST" },
+      "https://www.google.com/recaptcha/api/siteverify",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: params.toString(),
+      },
     );
+
     const recaptchaData = await recaptchaRes.json();
+
     if (!recaptchaData.success || recaptchaData.score < 0.5) {
       return res
         .status(400)
         .json({ message: "Błąd reCAPTCHA. Spróbuj ponownie." });
     }
-  } catch {
+  } catch (error) {
+    console.error("Błąd weryfikacji reCAPTCHA:", error);
     return res.status(500).json({ message: "Błąd reCAPTCHA." });
   }
 
-  // Transporter Nodemailer
+  // Konfiguracja transportera nodemailer
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -33,7 +50,7 @@ export default async function handler(req, res) {
   });
 
   try {
-    // Mail do Ciebie
+    // Mail do Ciebie z formularza kontaktowego
     await transporter.sendMail({
       from: `"Formularz kontaktowy" <${process.env.MAIL_USER}>`,
       to: process.env.MAIL_USER,
@@ -41,7 +58,7 @@ export default async function handler(req, res) {
       text: `Imię: ${name}\nEmail: ${email}\n\nWiadomość:\n${message}`,
     });
 
-    // Auto-reply do nadawcy
+    // Auto-odpowiedź do nadawcy
     await transporter.sendMail({
       from: `"Jadwiga Osial Art" <${process.env.MAIL_USER}>`,
       to: email,
@@ -49,8 +66,11 @@ export default async function handler(req, res) {
       text: `Dzień dobry ${name},\n\nDziękuję za wiadomość. Odpowiem tak szybko, jak to możliwe.\n\nPozdrawiam,\nJadwiga Osial`,
     });
 
-    res.status(200).json({ message: "Wiadomość wysłana." });
+    return res.status(200).json({ message: "Wiadomość wysłana." });
   } catch (error) {
-    res.status(500).json({ message: "Błąd przy wysyłaniu maila.", error });
+    console.error("Błąd wysyłania maila:", error);
+    return res
+      .status(500)
+      .json({ message: "Błąd przy wysyłaniu maila.", error: error.message });
   }
 }

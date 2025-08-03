@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Section from "../components/Section";
 
 export default function ContactSection() {
@@ -8,6 +8,20 @@ export default function ContactSection() {
     message: "",
   });
   const [status, setStatus] = useState("");
+  const [recaptchaReady, setRecaptchaReady] = useState(false);
+
+  useEffect(() => {
+    // Dynamically load the reCAPTCHA script
+    const script = document.createElement("script");
+    script.src = `https://www.google.com/recaptcha/api.js?render=${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    script.onload = () => setRecaptchaReady(true);
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,13 +31,16 @@ export default function ContactSection() {
     e.preventDefault();
     setStatus("Wysyłanie...");
 
+    if (!recaptchaReady || !window.grecaptcha) {
+      setStatus("❌ reCAPTCHA nie jest jeszcze gotowa, spróbuj za chwilę.");
+      return;
+    }
+
     try {
-      // Pobranie tokena reCAPTCHA
       const token = await window.grecaptcha.execute(
         import.meta.env.VITE_RECAPTCHA_SITE_KEY,
         { action: "submit" },
       );
-      console.log(token);
 
       const res = await fetch("/api/sendEmail", {
         method: "POST",
@@ -32,14 +49,16 @@ export default function ContactSection() {
       });
 
       const data = await res.json();
+
       if (res.ok) {
         setStatus("✅ Wiadomość wysłana!");
         setFormData({ name: "", email: "", message: "" });
       } else {
         setStatus(`❌ Błąd: ${data.message}`);
       }
-    } catch {
+    } catch (error) {
       setStatus("❌ Błąd serwera.");
+      console.error(error);
     }
   };
 
@@ -82,15 +101,13 @@ export default function ContactSection() {
         <button
           type="submit"
           className="bg-accent text-primary hover:bg-accent/80 rounded-lg py-3 font-bold transition-colors"
+          disabled={!recaptchaReady}
         >
           Wyślij
         </button>
       </form>
 
       {status && <p className="mt-4 text-sm">{status}</p>}
-      <script
-        src={`https://www.google.com/recaptcha/api.js?render=${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`}
-      ></script>
     </Section>
   );
 }
