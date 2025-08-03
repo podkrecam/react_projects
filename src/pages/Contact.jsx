@@ -23,6 +23,7 @@ export default function ContactSection() {
         import.meta.env.VITE_RECAPTCHA_SITE_KEY,
         { action: "submit" },
       );
+      console.log(token);
 
       const res = await fetch("/api/sendEmail", {
         method: "POST",
