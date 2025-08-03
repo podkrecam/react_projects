@@ -18,7 +18,7 @@ export default function ContactSection() {
     setStatus("Wysyłanie...");
 
     try {
-      const res = await fetch(import.meta.env.VITE_API_URL, {
+      const res = await fetch("/api/sendEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

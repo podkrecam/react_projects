@@ -1,7 +1,6 @@
 import nodemailer from "nodemailer";
 
 export default async function handler(req, res) {
-  console.log(req);
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
@@ -17,15 +16,15 @@ export default async function handler(req, res) {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: import.meta.env.EMAIL_USER,
-        pass: import.meta.env.EMAIL_PASS,
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
     // Wysyłanie maila
     await transporter.sendMail({
-      from: `"Portfolio Contact" <${import.meta.env.EMAIL_USER}>`,
-      to: import.meta.env.EMAIL_TO,
+      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_TO,
       subject: `Nowa wiadomość od ${name}`,
       text: `Od: ${name} (${email})\n\n${message}`,
     });
