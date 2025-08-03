@@ -87,7 +87,7 @@ export default async function handler(req, res) {
       </p>
       <hr style="border:none; border-top:1px solid #eee; margin:30px 0;" />
       <p style="font-size: 12px; color: #999; text-align: center;">
-        To jest wiadomość automatyczna, prosimy na nią nie odpowiadać.
+        To jest wiadomość automatyczna, proszę na nią nie odpowiadać.
       </p>
     </div>
   `,

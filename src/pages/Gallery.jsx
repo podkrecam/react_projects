@@ -1,3 +1,7 @@
 export default function Gallery() {
-  return <div>Gallery</div>;
+  return (
+    <div className="flex min-h-full items-center justify-center">
+      Strona w budowie...
+    </div>
+  );
 }
