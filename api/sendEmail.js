@@ -58,16 +58,35 @@ export default async function handler(req, res) {
     await transporter.sendMail({
       from: `"Jadwiga Osial Art" <${process.env.MAIL_USER}>`,
       to: email,
-      subject: "Dziękujemy za kontakt",
+      subject: "Dziękuje za kontakt",
       html: `
-    <div style="font-family: Arial, sans-serif; color: #333;">
-      <h2 style="color: #4a6b5f;">Dzień dobry ${name},</h2>
-      <p>Dziękujemy za wiadomość! Bardzo cieszę się, że się ze mną skontaktowałeś/aś.</p>
-      <p>Odpowiem na Twoją wiadomość tak szybko, jak to będzie możliwe.</p>
+    <div style="
+      font-family: Arial, sans-serif; 
+      color: #333; 
+      background-color: #f9f9f9; 
+      padding: 20px; 
+      border-radius: 8px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    ">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <img src="https://www.jadwigaosialart.pl/assets/hero3-C2GsXEO6.jpg" alt="Jadwiga Osial Art" style="height: 50px;"/>
+      </div>
+      <h2 style="color: #4a6b5f; margin-bottom: 16px;">Dzień dobry ${name},</h2>
+      <p style="font-size: 16px; line-height: 1.5;">
+        Dziękuję za wiadomość! Bardzo cieszę się, że się ze mną skontaktowałeś/aś.
+      </p>
+      <p style="font-size: 16px; line-height: 1.5;">
+        Odpowiem na Twoją wiadomość tak szybko, jak to będzie możliwe.
+      </p>
       <br />
-      <p>Pozdrawiam serdecznie,<br /><strong>Jadwiga Osial Art</strong></p>
-      <hr style="border:none; border-top:1px solid #eee; margin:20px 0;" />
-      <p style="font-size: 12px; color: #999;">
+      <p style="font-size: 16px; line-height: 1.5;">
+        Pozdrawiam serdecznie,<br />
+        <strong>Jadwiga Osial</strong>
+      </p>
+      <hr style="border:none; border-top:1px solid #eee; margin:30px 0;" />
+      <p style="font-size: 12px; color: #999; text-align: center;">
         To jest wiadomość automatyczna, prosimy na nią nie odpowiadać.
       </p>
     </div>
