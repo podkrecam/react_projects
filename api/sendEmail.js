@@ -11,6 +11,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: "Brak tokenu reCAPTCHA" });
   }
 
+  // Weryfikacja reCAPTCHA v3
   try {
     const params = new URLSearchParams();
     params.append("secret", process.env.RECAPTCHA_SECRET_KEY);
@@ -39,6 +40,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ message: "Błąd reCAPTCHA." });
   }
 
+  // Konfiguracja transportera nodemailer
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -48,6 +50,7 @@ export default async function handler(req, res) {
   });
 
   try {
+    // Mail do Ciebie z formularza kontaktowego
     await transporter.sendMail({
       from: `"Formularz kontaktowy" <${process.env.MAIL_USER}>`,
       to: process.env.MAIL_USER,
@@ -55,6 +58,7 @@ export default async function handler(req, res) {
       text: `Imię: ${name}\nEmail: ${email}\n\nWiadomość:\n${message}`,
     });
 
+    // Auto-odpowiedź do nadawcy
     await transporter.sendMail({
       from: `"Jadwiga Osial Art" <${process.env.MAIL_USER}>`,
       to: email,
