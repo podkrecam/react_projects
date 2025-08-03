@@ -11,7 +11,6 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: "Brak tokenu reCAPTCHA" });
   }
 
-  // Weryfikacja reCAPTCHA v3
   try {
     const params = new URLSearchParams();
     params.append("secret", process.env.RECAPTCHA_SECRET_KEY);
@@ -40,27 +39,24 @@ export default async function handler(req, res) {
     return res.status(500).json({ message: "Błąd reCAPTCHA." });
   }
 
-  // Konfiguracja transportera nodemailer
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
   try {
-    // Mail do Ciebie z formularza kontaktowego
     await transporter.sendMail({
-      from: `"Formularz kontaktowy" <${process.env.MAIL_USER}>`,
-      to: process.env.MAIL_USER,
+      from: `"Formularz kontaktowy" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_USER,
       subject: `Nowa wiadomość od ${name}`,
       text: `Imię: ${name}\nEmail: ${email}\n\nWiadomość:\n${message}`,
     });
 
-    // Auto-odpowiedź do nadawcy
     await transporter.sendMail({
-      from: `"Jadwiga Osial Art" <${process.env.MAIL_USER}>`,
+      from: `"Jadwiga Osial Art" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Dziękujemy za kontakt",
       text: `Dzień dobry ${name},\n\nDziękuję za wiadomość. Odpowiem tak szybko, jak to możliwe.\n\nPozdrawiam,\nJadwiga Osial`,
