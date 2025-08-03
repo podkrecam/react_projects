@@ -65,7 +65,7 @@ export default async function handler(req, res) {
       <p>Dziękujemy za wiadomość! Bardzo cieszę się, że się ze mną skontaktowałeś/aś.</p>
       <p>Odpowiem na Twoją wiadomość tak szybko, jak to będzie możliwe.</p>
       <br />
-      <p>Pozdrawiamy serdecznie,<br /><strong>Jadwiga Osial Art</strong></p>
+      <p>Pozdrawiam serdecznie,<br /><strong>Jadwiga Osial Art</strong></p>
       <hr style="border:none; border-top:1px solid #eee; margin:20px 0;" />
       <p style="font-size: 12px; color: #999;">
         To jest wiadomość automatyczna, prosimy na nią nie odpowiadać.

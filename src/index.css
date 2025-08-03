@@ -10,3 +10,7 @@
   --font-primary: "Cormorant", serif;
   --font-secondary: "Lora", serif;
 }
+
+.grecaptcha-badge {
+  visibility: hidden !important;
+}
