@@ -1,7 +1,11 @@
+import Section from "../components/Section";
+
 export default function Gallery() {
   return (
-    <div className="flex min-h-full items-center justify-center">
-      Strona w budowie...
-    </div>
+    <Section className="bg-primary text-text relative flex flex-col items-center justify-center overflow-hidden md:h-screen">
+      <h2 className="text-accent font-primary mb-10 text-4xl font-bold uppercase">
+        Strona w budowie...
+      </h2>
+    </Section>
   );
 }
