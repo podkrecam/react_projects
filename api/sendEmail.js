@@ -5,33 +5,52 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
 
-  const { name, email, message } = req.body;
+  const { name, email, message, token } = req.body;
 
-  if (!name || !email || !message) {
-    return res.status(400).json({ message: "Missing fields" });
+  // Walidacja reCAPTCHA
+  try {
+    const recaptchaRes = await fetch(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
+      { method: "POST" },
+    );
+    const recaptchaData = await recaptchaRes.json();
+    if (!recaptchaData.success || recaptchaData.score < 0.5) {
+      return res
+        .status(400)
+        .json({ message: "Błąd reCAPTCHA. Spróbuj ponownie." });
+    }
+  } catch {
+    return res.status(500).json({ message: "Błąd reCAPTCHA." });
   }
 
+  // Transporter Nodemailer
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
+    },
+  });
+
   try {
-    // Transporter SMTP
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    // Wysyłanie maila
+    // Mail do Ciebie
     await transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_TO,
+      from: `"Formularz kontaktowy" <${process.env.MAIL_USER}>`,
+      to: process.env.MAIL_USER,
       subject: `Nowa wiadomość od ${name}`,
-      text: `Od: ${name} (${email})\n\n${message}`,
+      text: `Imię: ${name}\nEmail: ${email}\n\nWiadomość:\n${message}`,
     });
 
-    return res.status(200).json({ message: "Email sent successfully" });
+    // Auto-reply do nadawcy
+    await transporter.sendMail({
+      from: `"Jadwiga Osial Art" <${process.env.MAIL_USER}>`,
+      to: email,
+      subject: "Dziękujemy za kontakt",
+      text: `Dzień dobry ${name},\n\nDziękuję za wiadomość. Odpowiem tak szybko, jak to możliwe.\n\nPozdrawiam,\nJadwiga Osial`,
+    });
+
+    res.status(200).json({ message: "Wiadomość wysłana." });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Error sending email", error });
+    res.status(500).json({ message: "Błąd przy wysyłaniu maila.", error });
   }
 }

@@ -18,10 +18,16 @@ export default function ContactSection() {
     setStatus("Wysyłanie...");
 
     try {
+      // Pobranie tokena reCAPTCHA
+      const token = await window.grecaptcha.execute(
+        import.meta.env.VITE_RECAPTCHA_SITE_KEY,
+        { action: "submit" },
+      );
+
       const res = await fetch("/api/sendEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, token }),
       });
 
       const data = await res.json();
@@ -31,7 +37,7 @@ export default function ContactSection() {
       } else {
         setStatus(`❌ Błąd: ${data.message}`);
       }
-    } catch (err) {
+    } catch {
       setStatus("❌ Błąd serwera.");
     }
   };
@@ -81,6 +87,9 @@ export default function ContactSection() {
       </form>
 
       {status && <p className="mt-4 text-sm">{status}</p>}
+      <script
+        src={`https://www.google.com/recaptcha/api.js?render=${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`}
+      ></script>
     </Section>
   );
 }
