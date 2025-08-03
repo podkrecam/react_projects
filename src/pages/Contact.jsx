@@ -63,7 +63,7 @@ export default function ContactSection() {
   };
 
   return (
-    <Section className="bg-primary text-text relative flex flex-col items-center justify-center overflow-hidden md:h-screen">
+    <Section className="bg-primary text-text relative flex h-screen flex-col items-center justify-center overflow-hidden">
       <h2 className="text-accent font-primary mb-10 text-4xl font-bold uppercase">
         Kontakt
       </h2>
