@@ -26,7 +26,7 @@ export default function Footer() {
             className="opacity-80 transition-transform hover:scale-110 hover:opacity-100"
             aria-label="Facebook"
           >
-            <AiFillFacebook size={25} color="#5a5a5a" />
+            <AiFillFacebook size={25} color="#4a6b5f" />
           </Link>
 
           <Link
@@ -36,7 +36,7 @@ export default function Footer() {
             className="opacity-80 transition-transform hover:scale-110 hover:opacity-100"
             aria-label="Instagram"
           >
-            <AiFillInstagram size={25} color="#5a5a5a" />
+            <AiFillInstagram size={25} color="#4a6b5f" />
           </Link>
         </div>
 
