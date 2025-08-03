@@ -14,7 +14,7 @@ export default function AboutHero() {
     <Section className="bg-primary text-text relative flex items-center justify-center overflow-hidden md:h-screen">
       <div className="flex w-full max-w-6xl flex-col items-center justify-center gap-8 px-5 py-10 md:grid md:grid-cols-2 md:gap-6">
         {/* Lewa kolumna - portret */}
-        <div className="flex items-center justify-center px-4">
+        <div className="flex items-center justify-center px-4 py-4">
           <img
             src={portrait}
             alt="Jadwiga Osial"
