@@ -25,8 +25,12 @@ export default function Gallery() {
   }, []);
 
   return (
-    <Section className="bg-primary text-text min-h-screen p-8 pt-20">
+    <Section className="bg-primary text-text min-h-screen p-8 pt-10 md:pt-20">
       {/* Masonry layout */}
+      <h1 className="text-accent mb-10 text-center text-4xl font-bold md:text-5xl">
+        Galeria prac
+      </h1>
+
       <div className="columns-1 gap-4 space-y-4 sm:columns-2 md:columns-3 lg:columns-4">
         {images.map((file) => (
           <div
