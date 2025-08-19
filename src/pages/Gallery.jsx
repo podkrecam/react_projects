@@ -1,17 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Section from "../components/Section";
 
-const shuffle = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-};
-
 export default function Gallery() {
-  const [images, setImages] = useState([]);
+  const [allImages, setAllImages] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(10);
   const [selectedImage, setSelectedImage] = useState(null);
+  const increment = 10;
+  const loaderRef = useRef(null);
 
   useEffect(() => {
     async function fetchImages() {
@@ -29,11 +24,31 @@ export default function Gallery() {
           thumbnail: file.thumbnailLink.replace("=s220", "=s640"),
           full: file.thumbnailLink.replace("=s220", "=s1200"),
         }));
-      shuffle(files);
-      setImages(files);
+
+      setAllImages(files);
     }
     fetchImages();
   }, []);
+
+  useEffect(() => {
+    if (!loaderRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisibleCount((prev) =>
+            Math.min(prev + increment, allImages.length),
+          );
+        }
+      },
+      { rootMargin: "200px" },
+    );
+
+    observer.observe(loaderRef.current);
+
+    return () => observer.disconnect();
+  }, [allImages]);
+
+  const visibleImages = allImages.slice(0, visibleCount);
 
   return (
     <Section className="bg-primary text-text font-primary min-h-screen p-8 pt-10 tracking-widest uppercase md:pt-20">
@@ -43,7 +58,7 @@ export default function Gallery() {
       </h1>
 
       <div className="columns-1 gap-4 space-y-4 sm:columns-2 md:columns-3 lg:columns-4">
-        {images.map((file) => (
+        {visibleImages.map((file) => (
           <div
             key={file.id}
             className="cursor-pointer break-inside-avoid overflow-hidden rounded-lg shadow-lg"
@@ -56,6 +71,10 @@ export default function Gallery() {
             />
           </div>
         ))}
+      </div>
+
+      <div ref={loaderRef} className="flex h-16 items-center justify-center">
+        {visibleCount < allImages.length && "Ładowanie..."}
       </div>
 
       {/* Modal */}
