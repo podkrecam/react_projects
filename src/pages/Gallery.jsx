@@ -25,7 +25,7 @@ export default function Gallery() {
   }, []);
 
   return (
-    <Section className="bg-primary text-text min-h-screen p-8 pt-10 md:pt-20">
+    <Section className="bg-primary text-text font-primary min-h-screen p-8 pt-10 tracking-widest uppercase md:pt-20">
       {/* Masonry layout */}
       <h1 className="text-accent mb-10 text-center text-4xl font-bold md:text-5xl">
         Galeria prac
