@@ -21,7 +21,7 @@ export default function Gallery() {
           id: file.id,
           name: file.name,
           thumbnail: file.thumbnailLink.replace("=s220", "=s640"),
-          full: file.thumbnailLink.replace("=s220", "=s1200"),
+          full: file.thumbnailLink.replace("=s220", "=s2000"),
         }));
 
       setAllImages(files);
