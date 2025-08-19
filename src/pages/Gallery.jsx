@@ -14,7 +14,6 @@ export default function Gallery() {
         `https://www.googleapis.com/drive/v3/files?q='${import.meta.env.VITE_DRIVE_FOLDER_ID}'+in+parents&key=${import.meta.env.VITE_DRIVE_API}&fields=files(id,name,mimeType,thumbnailLink,webContentLink)`,
       );
       const data = await res.json();
-      console.log(data);
 
       const files = data.files
         .filter((file) => file.mimeType.startsWith("image/"))
