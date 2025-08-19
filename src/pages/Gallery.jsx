@@ -7,7 +7,7 @@ export default function Gallery() {
   useEffect(() => {
     async function fetchImages() {
       const res = await fetch(
-        `https://www.googleapis.com/drive/v3/files?q='${import.meta.env.DRIVE_FOLDER_ID}'+in+parents&key=${import.meta.env.DRIVE_API}&fields=files(id,name,mimeType)`,
+        `https://www.googleapis.com/drive/v3/files?q='${import.meta.env.VITE_DRIVE_FOLDER_ID}'+in+parents&key=${import.meta.env.VITE_DRIVE_API}&fields=files(id,name,mimeType)`,
       );
       const data = await res.json();
       const files = data.files
