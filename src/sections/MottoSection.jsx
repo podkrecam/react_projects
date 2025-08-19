@@ -11,7 +11,7 @@ export default function MottoSection() {
   }, []);
 
   return (
-    <Section className="bg-primary text-text relative flex h-[30vh] items-center justify-center overflow-hidden md:h-[40vh]">
+    <Section className="bg-primary text-text relative flex h-[25vh] items-center justify-center overflow-hidden md:h-[40vh]">
       <div
         className="absolute inset-0 bg-black/50"
         style={{
