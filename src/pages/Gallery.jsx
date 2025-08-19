@@ -5,8 +5,7 @@ const a =
   "352977332252-g2h1no8vvrlf2opusc1fbdnta959a7ce.apps.googleusercontent.com";
 
 const folderId = "1nmV92eolAFxjprEyWYt82i5BRl0srAVH";
-const apiKey =
-  "352977332252-g2h1no8vvrlf2opusc1fbdnta959a7ce.apps.googleusercontent.com";
+const apiKey = "AIzaSyAB9ldjOMSMVWsw_Q9SqRAjOWAdTLpdhCE";
 
 export default function Gallery() {
   const [images, setImages] = useState([]);
