@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import Section from "../components/Section";
 
+const shuffle = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
 export default function Gallery() {
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -11,6 +19,8 @@ export default function Gallery() {
         `https://www.googleapis.com/drive/v3/files?q='${import.meta.env.VITE_DRIVE_FOLDER_ID}'+in+parents&key=${import.meta.env.VITE_DRIVE_API}&fields=files(id,name,mimeType,thumbnailLink,webContentLink)`,
       );
       const data = await res.json();
+      console.log(data);
+
       const files = data.files
         .filter((file) => file.mimeType.startsWith("image/"))
         .map((file) => ({
@@ -19,6 +29,7 @@ export default function Gallery() {
           thumbnail: file.thumbnailLink.replace("=s220", "=s640"),
           full: file.thumbnailLink.replace("=s220", "=s1200"),
         }));
+      shuffle(files);
       setImages(files);
     }
     fetchImages();
