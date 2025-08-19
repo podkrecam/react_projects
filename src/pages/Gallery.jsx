@@ -60,7 +60,7 @@ export default function Gallery() {
         {visibleImages.map((file) => (
           <div
             key={file.id}
-            className="cursor-pointer break-inside-avoid overflow-hidden rounded-lg shadow-lg"
+            className="cursor-zoom-in break-inside-avoid overflow-hidden rounded-lg shadow-lg"
             onClick={() => setSelectedImage(file.full)}
           >
             <img
@@ -79,7 +79,7 @@ export default function Gallery() {
       {/* Modal */}
       {selectedImage && (
         <div
-          className="bg-opacity-80 fixed inset-0 z-100 flex items-center justify-center bg-black p-4"
+          className="bg-opacity-80 fixed inset-0 z-100 flex cursor-zoom-out items-center justify-center bg-black p-4"
           onClick={() => setSelectedImage(null)}
         >
           <img
