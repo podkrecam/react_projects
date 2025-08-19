@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Section from "../components/Section";
-import hero1 from "../assets/images/hero1.jpg";
+import hero2 from "../assets/images/hero2.jpg";
 
 export default function HeroSection() {
   const [animate, setAnimate] = useState(false);
@@ -32,7 +32,7 @@ export default function HeroSection() {
         {/* prawa kolumna */}
         <div className="flex items-center justify-center px-4">
           <img
-            src={hero1}
+            src={hero2}
             alt="Obraz 1"
             className={`max-h-[65vh] w-full max-w-lg rounded-xl border border-neutral-800 object-cover shadow-2xl transition-transform duration-1000 hover:scale-105 md:max-h-[80vh] ${
               animate ? "scale-100 opacity-100" : "scale-90 opacity-0"
