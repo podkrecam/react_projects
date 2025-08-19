@@ -23,17 +23,18 @@ export default function Gallery() {
   }, []);
 
   return (
-    <Section className="bg-primary text-text relative flex h-screen flex-col items-center justify-center overflow-hidden">
-      {images.map((file) => (
-        <div key={file.id}>
-          <img
-            src={`https://drive.google.com/uc?export=view&id=${file.id}`}
-            alt={file.name}
-            className="rounded-lg shadow"
-          />
-          <p>{file.name}</p>
-        </div>
-      ))}
+    <Section className="bg-primary text-text min-h-screen p-8">
+      <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+        {images.map((file) => (
+          <div key={file.id} className="flex flex-col items-center">
+            <img
+              src={file.url}
+              alt={file.name}
+              className="w-full rounded-lg object-cover shadow-lg"
+            />
+          </div>
+        ))}
+      </div>
     </Section>
   );
 }
